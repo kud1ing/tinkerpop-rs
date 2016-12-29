@@ -1,34 +1,11 @@
 extern crate rucaja;
-extern crate tinkerpop_rs;
 
-use rucaja::Jvm;
-use tinkerpop_rs::TinkerGraphClass;
-
+use rucaja::{Jvm, jvalue_from_jobject};
+use std::ptr::null;
 
 fn main() {
 
-    // The JARs need to be in the correct order: each added JAR should be without any unsatisfied
-    // dependencies up to that point.
-    let class_path =
-"-Djava.class.path=\"\
-slf4j-api-1.7.5.jar:\
-snakeyaml-1.15.jar:\
-commons-lang-2.6.jar:\
-commons-logging-1.1.1.jar:\
-log4j-1.2.17.jar:\
-slf4j-api-1.7.21.jar:\
-jcabi-log-0.14.jar:\
-hppc-0.7.1.jar:\
-jcabi-manifests-1.1.jar:\
-commons-configuration-1.10.jar:\
-gremlin-shaded-3.2.1.jar:\
-javatuples-1.2.jar:\
-slf4j-log4j12-1.7.21.jar:\
-jcl-over-slf4j-1.7.21.jar:\
-commons-lang3-3.3.1.jar:\
-gremlin-core-3.2.1.jar:\
-tinkergraph-gremlin-3.2.1.jar:\
-.\"";
+    let class_path = "-Djava.class.path=../java/build/libs/tinkerpop.jar:";
 
     let jvm_options = [
         class_path,
@@ -41,10 +18,13 @@ tinkergraph-gremlin-3.2.1.jar:\
     unsafe {
         let jvm = Jvm::new(&jvm_options);
 
-        let wrapper_class = jvm.get_class("TinkerpopWrapper").expect("Could not find JVM class");
+        let class = jvm.get_class("TinkerpopWrapper").expect("Could not find `TinkerpopWrapper`");
+        let println = jvm.get_static_method(&class, "println", "(Ljava/lang/Object;)V").expect("Could not find `println()`");
 
-        #[allow(non_snake_case)]
-        let TinkerGraph = TinkerGraphClass::new(&jvm).expect("Could not find `TinkerGraph` class");
+        let tinkergraph_new = jvm.get_static_method(&class, "tinkergraph_new", "()Lorg/apache/tinkerpop/gremlin/structure/Graph;").expect("Could not find `tinkergraph_new()`");
+        let graph = jvm.call_static_object_method(&class, &tinkergraph_new, null());
 
+        let args = vec![jvalue_from_jobject(graph)];
+        jvm.call_static_void_method(&class, &println, args.as_ptr());
     }
 }
