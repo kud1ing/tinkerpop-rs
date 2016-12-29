@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+    }
+}
+
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'eclipse'
+apply plugin: 'java'
+apply plugin: 'maven'
+
+mainClassName = "TinkerpopWrapper"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.apache.tinkerpop', name: 'gremlin-core', version: '3.2.3'
+    compile group: 'org.apache.tinkerpop', name: 'tinkergraph-gremlin', version: '3.2.3'
+}
+
+shadowJar {
+    baseName = 'tinkerpop'
+    classifier = null
+    version = null
+}

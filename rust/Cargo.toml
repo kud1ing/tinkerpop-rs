@@ -1,0 +1,13 @@
+[package]
+authors = ["Lennart Kudling"]
+description = "Rust calls Apache TinkerPop"
+documentation = "https://docs.rs/crate/rucaja"
+keywords = ["gremlin", "tinkerpop"]
+license = "MIT/Apache-2.0"
+name = "tinkerpop-rs"
+readme = "README.md"
+repository = "https://github.com/kud1ing/tinkerpop-rs"
+version = "0.1.0"
+
+[dependencies]
+rucaja="0.1.5"
