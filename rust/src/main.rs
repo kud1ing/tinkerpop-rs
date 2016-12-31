@@ -16,12 +16,13 @@ fn main() {
     ];
 
     unsafe {
+        println!("* Instantiate the embedded JVM.");
         let jvm = Jvm::new(&jvm_options);
 
-        // Get a reference to the Java wrapper class.
+        println!("* Get a reference to the Java wrapper class `TinkerPopWrapper`.");
         let class = jvm.get_class("TinkerPopWrapper").expect("Could not find `TinkerPopWrapper`");
 
-        // Get references to Java methods in that Java wrapper class.
+        println!("* Get references to Java methods in that Java wrapper class.");
         let tinkergraph_new = jvm.get_static_method(&class, "tinkergraph_new", "()Lorg/apache/tinkerpop/gremlin/structure/Graph;").expect("Could not find `tinkergraph_new()`");
         let main = jvm.get_static_method(&class, "main", "([Ljava/lang/String;)V").expect("Could not find `main()`");
 
@@ -29,7 +30,7 @@ fn main() {
         //let print_graph = jvm.get_static_method(&class, "print_graph", "(Lorg/apache/tinkerpop/gremlin/structure/Graph;)V").expect("Could not find `print_graph()`");
         //let println = jvm.get_static_method(&class, "println", "(Ljava/lang/Object;)V").expect("Could not find `println()`");
 
-        // Instantiate a Java `TinkerGraph`.
+        println!("* Instantiate a Java `TinkerGraph` object");
         let graph = jvm.call_static_object_method(&class, &tinkergraph_new, null());
 
         // TODO: Print the `TinkerGraph` via Java's `System.out.println()`.
