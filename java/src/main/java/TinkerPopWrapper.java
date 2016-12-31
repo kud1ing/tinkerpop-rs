@@ -14,10 +14,6 @@ public class TinkerPopWrapper {
         System.out.println(o);
     }
 
-    public static void print_graph(Graph g) {
-        System.out.println(g);
-    }
-
     /**
      * Creates and returns a `TinkerGraph`.
      * @return
