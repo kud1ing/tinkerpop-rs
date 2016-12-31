@@ -1,15 +1,21 @@
+import org.apache.tinkerpop.gremlin.structure.Edge;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
 
 /**
- * A wrapper class for Apache TinkerPop to be used from Rust code.
+ * A wrapper class for Apache TinkerPop to simplify access from Rust code.
  *
  * The Java method signatures can be seen using the Java command-line tool `javap`:
  *
  *     javap -s build/classes/main/TinkerPopWrapper.class
  */
 public class TinkerPopWrapper {
+
+    public static String dummy_string() {
+        return new String("DUMMY");
+    }
+
 
     /**
      * Adds a vertex to the graph
@@ -37,6 +43,18 @@ public class TinkerPopWrapper {
      */
     public static Graph tinkergraph_new() {
         return TinkerGraph.open();
+    }
+
+    /**
+     * Adds an edge between two vertices.
+     *
+     * @param vertex_out
+     * @param label
+     * @param vertex_in
+     * @return
+     */
+    public static Edge vertex_add_edge(Vertex vertex_out, String label, Vertex vertex_in) {
+        return vertex_out.addEdge(label, vertex_in);
     }
 
     public static void main(String[] args) {
