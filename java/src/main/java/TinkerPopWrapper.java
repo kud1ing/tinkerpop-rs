@@ -1,7 +1,10 @@
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
 
-public class TinkerpopWrapper {
+/**
+ * A wrapper class for Apache TinkerPop.
+ */
+public class TinkerPopWrapper {
 
     public static void println(Object o) {
         System.out.println(o);

@@ -13,7 +13,7 @@ apply plugin: 'eclipse'
 apply plugin: 'java'
 apply plugin: 'maven'
 
-mainClassName = "TinkerpopWrapper"
+mainClassName = "TinkerPopWrapper"
 
 repositories {
     mavenCentral()

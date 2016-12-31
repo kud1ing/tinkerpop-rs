@@ -1,6 +1,6 @@
 extern crate rucaja;
 
-use rucaja::{Jvm, jvalue_from_jobject};
+use rucaja::{jvalue_from_jobject, Jvm};
 use std::ptr::null;
 
 fn main() {
@@ -19,9 +19,9 @@ fn main() {
         let jvm = Jvm::new(&jvm_options);
 
         // Get a reference to the Java wrapper class.
-        let class = jvm.get_class("TinkerpopWrapper").expect("Could not find `TinkerpopWrapper`");
+        let class = jvm.get_class("TinkerPopWrapper").expect("Could not find `TinkerPopWrapper`");
 
-        // Get references to Java methods in that Java class.
+        // Get references to Java methods in that Java wrapper class.
         let tinkergraph_new = jvm.get_static_method(&class, "tinkergraph_new", "()Lorg/apache/tinkerpop/gremlin/structure/Graph;").expect("Could not find `tinkergraph_new()`");
         let main = jvm.get_static_method(&class, "main", "([Ljava/lang/String;)V").expect("Could not find `main()`");
 
