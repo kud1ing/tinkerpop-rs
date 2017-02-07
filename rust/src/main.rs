@@ -4,18 +4,6 @@ use rucaja::{jobject, jvalue_from_jobject, Jvm, JvmClass};
 use std::ptr::null;
 
 
-///
-unsafe fn create_a_java_string(jvm: &Jvm, class: &JvmClass) -> jobject {
-
-    let dummy_string = jvm.get_static_method(
-        &class, "dummy_string",
-        "()Ljava/lang/String;"
-    ).expect("Could not find Java method `dummy_string()`");
-
-    jvm.call_static_object_method(&class, &dummy_string, null())
-}
-
-
 fn main() {
 
     let class_path = "-Djava.class.path=../java/build/libs/tinkerpop.jar";
@@ -69,6 +57,8 @@ fn main() {
         let vertex1 = jvm.call_static_object_method(&class, &graph_add_vertex, args.as_ptr());
         let vertex2 = jvm.call_static_object_method(&class, &graph_add_vertex, args.as_ptr());
 
+        // TODO: Adding edges requires Java strings. Rucaja's `new_jstring()` curently returns internd strings, see
+        // https://github.com/kud1ing/rucaja/issues/9
         /*
         println!("* add an edge between the vertices");
         let args = vec![
