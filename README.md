@@ -1,8 +1,9 @@
 # Apache TinkerPop from Rust
 
-An example showing how to call Apache TinkerPop from Rust via JNI.
+An example showing how to call [Apache TinkerPop](https://tinkerpop.apache.org) from [Rust](https://www.rust-lang.org) via
+[Rucaja](https://github.com/kud1ing/rucaja) (JNI).
 
-There are two directories:
+Two directories are provided:
 
 * `java` contains a Java project to build a fat JAR `tinkerpop.jar` which contains a wrapper Java class around TinkerPop
   and all dependencies.
