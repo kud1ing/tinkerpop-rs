@@ -1,6 +1,6 @@
 # Apache TinkerPop from Rust
 
-An example showing how to call Apache TinkerPop from Rust.
+An example showing how to call Apache TinkerPop from Rust via JNI.
 
 There are two directories:
 
