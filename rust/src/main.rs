@@ -26,16 +26,15 @@ fn main() {
 
         println!("* get references to Java methods in that Java wrapper class.");
 
-        let graph_add_vertex = jvm.get_static_method(
-            &class, "graph_add_vertex",
+        let add_vertex_to_graph = jvm.get_static_method(
+            &class, "add_vertex_to_graph",
             "(Lorg/apache/tinkerpop/gremlin/structure/Graph;)Lorg/apache/tinkerpop/gremlin/structure/Vertex;"
-        ).expect("Could not find Java method `graph_add_vertex()`");
+        ).expect("Could not find Java method `add_vertex_to_graph()`");
 
-
-        let tinkergraph_new = jvm.get_static_method(
-            &class, "tinkergraph_new",
+        let new_tinkergraph = jvm.get_static_method(
+            &class, "new_tinkergraph",
             "()Lorg/apache/tinkerpop/gremlin/structure/Graph;"
-        ).expect("Could not find Java method `tinkergraph_new()`");
+        ).expect("Could not find Java method `new_tinkergraph()`");
 
         let println = jvm.get_static_method(
             &class,
@@ -43,19 +42,19 @@ fn main() {
             "(Ljava/lang/Object;)V"
         ).expect("Could not find Java method `println()`");
 
-        let vertex_add_edge = jvm.get_static_method(
-            &class, "vertex_add_edge",
+        let add_edge_between_vertices = jvm.get_static_method(
+            &class, "add_edge_between_vertices",
             "(Lorg/apache/tinkerpop/gremlin/structure/Vertex;Ljava/lang/String;Lorg/apache/tinkerpop/gremlin/structure/Vertex;)Lorg/apache/tinkerpop/gremlin/structure/Edge;"
-        ).expect("Could not find Java method `vertex_add_edge()`");
+        ).expect("Could not find Java method `add_edge_between_vertices()`");
 
 
         println!("* create a `TinkerGraph`");
-        let graph = jvm.call_static_object_method(&class, &tinkergraph_new, null());
+        let graph = jvm.call_static_object_method(&class, &new_tinkergraph, null());
 
         println!("* add two vertices");
         let args = vec![jvalue_from_jobject(graph)];
-        let vertex1 = jvm.call_static_object_method(&class, &graph_add_vertex, args.as_ptr());
-        let vertex2 = jvm.call_static_object_method(&class, &graph_add_vertex, args.as_ptr());
+        let vertex1 = jvm.call_static_object_method(&class, &add_vertex_to_graph, args.as_ptr());
+        let vertex2 = jvm.call_static_object_method(&class, &add_vertex_to_graph, args.as_ptr());
 
         println!("* add an edge between the vertices");
         let args = vec![
@@ -63,7 +62,7 @@ fn main() {
             jvalue_from_jobject(*jvm.new_jvm_string("likes").unwrap().jvm_string_ptr()),
             jvalue_from_jobject(vertex2),
         ];
-        let _ = jvm.call_static_object_method(&class, &vertex_add_edge, args.as_ptr());
+        let _ = jvm.call_static_object_method(&class, &add_edge_between_vertices, args.as_ptr());
 
         println!("* print the `TinkerGraph` object using Java's `System.out.println()`:");
         let args = vec![jvalue_from_jobject(graph)];

@@ -12,18 +12,13 @@ import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
  */
 public class TinkerPopWrapper {
 
-    public static String dummy_string() {
-        return new String("DUMMY");
-    }
-
-
     /**
      * Adds a vertex to the graph
      *
      * @param graph
      * @return a new vertex
      */
-    public static Vertex graph_add_vertex(Graph graph) {
+    public static Vertex add_vertex_to_graph(Graph graph) {
         return graph.addVertex();
     }
 
@@ -41,7 +36,7 @@ public class TinkerPopWrapper {
      * @see <http://tinkerpop.apache.org/javadocs/3.2.3/full/org/apache/tinkerpop/gremlin/tinkergraph/structure/TinkerGraph.html>
      * @return a new `TinkerGraph` instance
      */
-    public static Graph tinkergraph_new() {
+    public static Graph new_tinkergraph() {
         return TinkerGraph.open();
     }
 
@@ -53,11 +48,11 @@ public class TinkerPopWrapper {
      * @param vertex_in
      * @return
      */
-    public static Edge vertex_add_edge(Vertex vertex_out, String label, Vertex vertex_in) {
+    public static Edge add_edge_between_vertices(Vertex vertex_out, String label, Vertex vertex_in) {
         return vertex_out.addEdge(label, vertex_in);
     }
 
     public static void main(String[] args) {
-        System.out.println(tinkergraph_new());
+        System.out.println(new_tinkergraph());
     }
 }
