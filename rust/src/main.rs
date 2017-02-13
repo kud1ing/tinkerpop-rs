@@ -1,6 +1,6 @@
 extern crate rucaja;
 
-use rucaja::{jobject, jvalue_from_jobject, Jvm, JvmClass};
+use rucaja::{jvalue_from_jobject, Jvm};
 use std::ptr::null;
 
 
@@ -57,17 +57,13 @@ fn main() {
         let vertex1 = jvm.call_static_object_method(&class, &graph_add_vertex, args.as_ptr());
         let vertex2 = jvm.call_static_object_method(&class, &graph_add_vertex, args.as_ptr());
 
-        // TODO: Adding edges requires Java strings. Rucaja's `new_jstring()` curently returns internd strings, see
-        // https://github.com/kud1ing/rucaja/issues/9
-        /*
         println!("* add an edge between the vertices");
         let args = vec![
             jvalue_from_jobject(vertex1),
-            jvalue_from_jobject(jvm.new_jstring("likes")),
+            jvalue_from_jobject(*jvm.new_jvm_string("likes").unwrap().jvm_string_ptr()),
             jvalue_from_jobject(vertex2),
         ];
-        let edge = jvm.call_static_object_method(&class, &vertex_add_edge, args.as_ptr());
-        */
+        let _ = jvm.call_static_object_method(&class, &vertex_add_edge, args.as_ptr());
 
         println!("* print the `TinkerGraph` object using Java's `System.out.println()`:");
         let args = vec![jvalue_from_jobject(graph)];
