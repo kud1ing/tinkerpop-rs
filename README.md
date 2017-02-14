@@ -8,3 +8,4 @@ Two directories are provided:
 * `java` contains a Java project to build a fat JAR `tinkerpop.jar` which contains a wrapper Java class around TinkerPop
   and all dependencies.
 * `rust` contains Rust code which uses `tinkerpop.jar`.
+    Run it using `cargo run`.
