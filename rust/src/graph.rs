@@ -23,7 +23,7 @@ pub struct Graph<'a> {
 impl<'a> Graph<'a> {
 
     ///
-    pub unsafe fn add_edge(&self, vertex1: &JvmObject, predicate: &JvmString, vertex2: &JvmObject) -> Option<JvmObject> {
+    pub fn add_edge(&self, vertex1: &JvmObject, predicate: &JvmString, vertex2: &JvmObject) -> Option<JvmObject> {
 
         let args = vec![
             jvalue_from_jobject(vertex1.jvm_ptr()),
@@ -40,7 +40,7 @@ impl<'a> Graph<'a> {
     }
 
     ///
-    pub unsafe fn add_vertex(&self) -> Option<JvmObject> {
+    pub fn add_vertex(&self) -> Option<JvmObject> {
 
         let args = vec![jvalue_from_jobject(self.object_graph.jvm_ptr())];
 
@@ -53,7 +53,7 @@ impl<'a> Graph<'a> {
     }
 
     ///
-    pub unsafe fn new(jvm_attachment: &JvmAttachment) -> Option<Graph> {
+    pub fn new(jvm_attachment: &JvmAttachment) -> Option<Graph> {
 
         // Resolve the Java wrapper class from the fat JAR.
         let wrapper_class = JvmClass::get_class(jvm_attachment, "TinkerPopWrapper").expect("Could not find `TinkerPopWrapper`");
@@ -105,7 +105,7 @@ impl<'a> Graph<'a> {
     }
 
     ///
-    pub unsafe fn println(&self) {
+    pub fn println(&self) {
 
         let args = vec![jvalue_from_jobject(self.object_graph.jvm_ptr())];
 

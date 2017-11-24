@@ -10,4 +10,4 @@ repository = "https://github.com/kud1ing/tinkerpop-rs"
 version = "0.1.0"
 
 [dependencies]
-rucaja="0.4.3"
+rucaja="0.4.5"
